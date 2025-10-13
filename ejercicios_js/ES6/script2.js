@@ -58,4 +58,30 @@ document.getElementById("descarga2").addEventListener("click",()=>{
       });
 })
 
+// Asincronía -- fetch() -- HTTP request
+// 2.- Declara una función getRandomDog que obtenga una imagen random de una raza.
 
+// 
+//  data = {
+//   "message": "https://images.dog.ceo/breeds/australian-shepherd/leroy.jpg",
+//   "status": "success"
+//   }
+
+
+function getRandomDog(){
+  const url = "https://dog.ceo/api/breeds/image/random";
+  return fetch(url)
+        .then(res => res.json()) // convertir a objeto
+        .then(data => data.message) // return de la URL de la imágen
+}
+
+// Llamar a la función
+
+// console.log(getRandomDog());
+getRandomDog().then(url_img => {
+  const img = `<img src=${url_img}>`;
+  document.body.innerHTML += img;
+  console.log(url_img);
+})
+
+getRandomDog().then(url_img => console.log(url_img)) ;      

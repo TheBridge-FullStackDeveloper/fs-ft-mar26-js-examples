@@ -348,8 +348,3 @@ const HIGH_TEMPERATURES = {
   tomorrow: 32,
 };
 const {today:maximaHoy, tomorrow:maximaManana} = HIGH_TEMPERATURES; // -> Con Destructuring extrae las tres claves de una vez
-
-
-
-
-
