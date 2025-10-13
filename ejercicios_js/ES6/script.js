@@ -311,6 +311,44 @@ function combineAllArrays2(...arrays){ //recibe cualquier array y argumentos
 console.log(combineAllArrays2(arr6, arr7, arr8)); //llamamos a la función
 
 
+// 11.- Escriba una función llamada sumAndSquare que reciba cualquier número de argumentos, los eleve al cuadrado y devuelva la suma de todos los valores cuadrados.
+
+function sumAndSquare(...numeros){
+  return numeros
+            //.map(n => n ** 2)
+            .map(n => n * n)
+            .reduce((acum, val) => acum + val);
+}
+
+console.log(sumAndSquare(5,6,2));
+console.log(sumAndSquare(5,6,33,33,22,11,24,53));
+
+function sumAndSquare2(...numeros){
+
+  let total = 0;
+  for (let i = 0; i < numeros.length; i++) {
+    total += numeros[i]**2;
+    
+  }
+return total;
+}
+
+
+console.log(sumAndSquare2(5,6,2));
+console.log(sumAndSquare2(5,6,33,33,22,11,24,53));
+
+
+// 4.- Dado el objeto HIGH_TEMPERATURES -- Destructuring
+// Cambiar las siguientes líneas para guardar mediante destructuración los valores de temperaturas en las variables maximaHoy y maximaManana
+
+
+const HIGH_TEMPERATURES = {
+  yesterday: 30,
+  today: 35,
+  tomorrow: 32,
+};
+const {today:maximaHoy, tomorrow:maximaManana} = HIGH_TEMPERATURES; // -> Con Destructuring extrae las tres claves de una vez
+
 
 
 
