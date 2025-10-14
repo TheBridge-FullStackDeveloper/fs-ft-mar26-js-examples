@@ -73,6 +73,7 @@ function getRandomDog(){
   return fetch(url)
         .then(res => res.json()) // convertir a objeto
         .then(data => data.message) // return de la URL de la imágen
+        .catch(data => console.log(data));
 }
 
 // Llamar a la función
@@ -84,4 +85,64 @@ getRandomDog().then(url_img => {
   console.log(url_img);
 })
 
-getRandomDog().then(url_img => console.log(url_img)) ;      
+getRandomDog().then(url_img => console.log(url_img)) ;  
+
+
+// Llamada anidada a 2 APIs
+
+const rickMortyURL = "https://rickandmortyapi.com/api/character";
+
+/**** Forma 1 -- LLamada a la API anidada ****/
+console.time("***timer1***");
+fetch("https://rickandmortyapi.com/api/character/1") // Datos de Rick
+  .then((res) => res.json())
+  .then((rickMortyData) => {
+    console.log("HA TERMINADO RICK Y MORTY 1");
+    console.log(rickMortyData);
+    const episode_url_3 = rickMortyData.episode[2]; // URL tercer episodio donde aparece
+
+    fetch(episode_url_3)
+      .then((res) => res.json())
+      .then((episode_data) => {
+        console.log("HA TERMINADO extracción datos del episodio");
+        console.log(episode_data);
+        console.log(episode_data.name); // nombre del episodio
+
+        console.timeEnd("***timer1***");
+      });
+  });
+
+// Asincronía async/await con Rick and Morty
+async function getCharacterData(){
+  try{
+    //1 - Extrae datos del primer personaje
+    const response1 = await fetch("https://rickandmortyapi.com/api/character/1"); // Rick
+    const data1 = await response1.json();
+
+    // Verificar si la respuesta es exitosa
+    if (!response1.ok) {
+      throw new Error(`Error HTTP - personaje: ${response1.status} - ${response1.statusText}`);
+    }
+
+    const episode_url = data1.episode[2]; // Endpoint tercer episodio
+
+    //2 - Extrae datos del episodio 3
+    const response2 = await fetch(episode_url+"hola");
+    const data2 = await response2.json();
+
+    // Verificar si la respuesta es exitosa
+    // if (!response2.ok) {
+    //   throw new Error(`Error HTTP - episodio: ${response2.status} - ${response2.statusText}`);
+    // }
+
+    return data2.name; // nombre episodio
+  }
+  catch(error){
+    console.log(`ERROR: ${error.stack}`);
+  }
+}
+
+getCharacterData().then(episode_name => console.log(`Nombre del episodio:${episode_name}`));
+
+
+
