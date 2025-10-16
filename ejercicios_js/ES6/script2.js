@@ -85,7 +85,20 @@ getRandomDog().then(url_img => {
   console.log(url_img);
 })
 
-getRandomDog().then(url_img => console.log(url_img)) ;  
+getRandomDog().then(url_img => console.log(url_img)) ; 
+
+// **IMPORTANTE**: 
+// En caso de quedarnos SIN PETICIONES A LA API, podemos cargar el objeto de un fichero externo
+function getRandomDog(){
+  const url = "./dogs.json";
+  return fetch(url)
+        .then(res => res.json()) // convertir a objeto
+        .then(data => data.message) // return de la URL de la imágen
+        .catch(data => console.log(data));
+}
+
+// Llamar a la función
+getRandomDog().then(url_img => console.log("*******IMG:"+url_img)) ;  
 
 
 // Llamada anidada a 2 APIs
@@ -110,7 +123,7 @@ fetch("https://rickandmortyapi.com/api/character/1") // Datos de Rick
 
         console.timeEnd("***timer1***");
       });
-  });
+  }); 
 
 // Asincronía async/await con Rick and Morty
 async function getCharacterData(){
@@ -145,4 +158,75 @@ async function getCharacterData(){
 getCharacterData().then(episode_name => console.log(`Nombre del episodio:${episode_name}`));
 
 
+/* 9.- Dada una lista de usuarios de github guardada en una array,crea una funcion fetchGithubUsers(userNames) que utilice 'https://api.github.com/users/${name}' para obtener el nombre de cada usuario.
+ */
 
+// usernames = ["ana","marta","pepe"] ----map()---> [Promise,Promise,Promise] ---> [fetch(),fetch(),fetch()]
+function fetchGithubUsers(usernames) {
+
+  const base_url = "https://api.github.com/users/"; // hay que concatenar username al final
+
+  const promises = usernames
+                      .map(name => 
+                        fetch(base_url+name) //"https://api.github.com/users/pepe"
+                        .then(response => response.json())
+                      );
+  // Promise.all() termina cuando se han ejecutado todas las promesas
+  // Tras ello, se hace return de los datos obtenidos en un array
+  return Promise.all(promises); // Cuando termina devuelve[{user_1},{user_2}] de resultados
+  }
+
+
+  const userNames2 = ["rebecadiazmontenegro","luciaaroca"];
+  fetchGithubUsers(userNames2)
+      .then(users => { // [] de usuarios
+          console.log('Todos los usuarios:', users);
+          // Para enseñar login y nombre real de cada usuario
+          users.forEach(user => {
+              console.log(`${user.login}: ${user.name}`);
+          });
+      })
+      .catch(error => {
+          console.error("Error al obtener los usuarios:", error);
+      });
+
+
+
+
+      // Guardar usuarios en Local Storage
+let usuarios = [
+  {
+    nombre: "John Doe",
+    email: "johndoe@example.com",
+    mensaje: "Hello, how are you?",
+    urlImagen: "https://example.com/johndoe.jpg",
+  },
+  {
+    nombre: "Jane Smith",
+    email: "janesmith@example.com",
+    mensaje: "Nice to meet you!",
+    urlImagen: "https://example.com/janesmith.jpg",
+  },
+];
+
+// Escribir en Local Storage
+localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+// Añadir un nuevo usuario
+let nuevoUsuario = {
+  nombre: "Alice Johnson",
+  email: "alicejohnson@example.com",
+  mensaje: "Looking forward to collaborating!",
+  urlImagen: "https://example.com/alicejohnson.jpg",
+};
+
+// Leer desde Local Storage
+let usuariosGuardados = JSON.parse(localStorage.getItem("usuarios"));
+console.log(usuariosGuardados);
+
+usuariosGuardados.push(nuevoUsuario);
+localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
+
+// Leer nuevamente para verificar el nuevo usuario
+let usuariosActualizados = JSON.parse(localStorage.getItem("usuarios"));
+console.log(usuariosActualizados);

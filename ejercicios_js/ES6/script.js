@@ -348,3 +348,32 @@ const HIGH_TEMPERATURES = {
   tomorrow: 32,
 };
 const {today:maximaHoy, tomorrow:maximaManana} = HIGH_TEMPERATURES; // -> Con Destructuring extrae las tres claves de una vez
+
+
+//Carlos
+// Convertir a YYYY-MM-DD
+const date = new Date(value);
+return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+
+// Cris
+const dateComplet = new Date(film.release_date);
+// Extrae sólo el año de la fecha utilizando ".getFullYear()"
+const dateYear = dateComplet.getFullYear();
+
+
+//Rebeca
+parseInt(pelicula.release_date.slice(0, 4));
+
+
+function avisar(){
+  setTimeout(() => {
+    const button = document.querySelector("div.p2SYhf > span > button");
+    button.click()
+    avisar();
+  }, "1000");
+}
+
+avisar();
+
+
+
