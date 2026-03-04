@@ -90,6 +90,27 @@ console.log(data8);
 
 
 
+// Hazme un array de objetos con 3 personas, cada persona tiene un nombre, apellidos y edad. Recorre el array e imprímelo por consola.
 
+const personas = [
+    {nombre: "Pepe", apellidos: "Perez", edad: 30},
+    {nombre: "Luis", apellidos: "Martinez", edad: 25},
+    {nombre: "Ana", apellidos: "Gomez", edad: 28}
+];
 
+for (const persona of personas) {
+    console.log(`${persona.nombre} ${persona.apellidos} tiene ${persona.edad} años.`);
+}
+
+const comidas = [
+    {nombre: "Pizza", tipo: "Italiana", calorias: 266},
+    {nombre: "Sushi", tipo: "Japonesa", calorias: 200},
+    {nombre: "Tacos", tipo: "Mexicana", calorias: 150},
+    {nombre: "Curry", tipo: "India", calorias: 300},
+    {nombre: "Croissant", tipo: "Francesa", calorias: 180}
+];
+
+for (const comida of comidas) {
+    console.log(`${comida.nombre} es una comida ${comida.tipo} con ${comida.calorias} calorías.`);
+}
 
