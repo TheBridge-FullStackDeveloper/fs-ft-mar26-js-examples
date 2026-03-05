@@ -61,18 +61,27 @@ console.log(bisiesto(1994));
 // let data = ["yoda", "best", "has", "tortilla", "cAfe", "barrita tomate", "zumo"];
 // contarCaracteres(data,"a");
 
-let data = ["yoda", "best", "has", "tortilla", "cAfe", "barrita tomate", "zumo"];
+let data = [
+  "yoda",
+  "best",
+  "has",
+  "tortilla",
+  "cAfe",
+  "barrita tomate",
+  "zumo",
+];
 
 function contarCaracteres(data, letra) {
-
-    let counter = 0; // Contador
-  for (let i = 0; i < data.length; i++) { // recorre array
+  let counter = 0; // Contador
+  for (let i = 0; i < data.length; i++) {
+    // recorre array
     const word = data[i].toLowerCase();
 
-    for (let j = 0; j < word.length; j++) { // recorre palabra
-        if (word[j] == letra.toLowerCase()) {
-            counter++;
-        }  
+    for (let j = 0; j < word.length; j++) {
+      // recorre palabra
+      if (word[j] == letra.toLowerCase()) {
+        counter++;
+      }
     }
   }
   return counter;
@@ -80,3 +89,106 @@ function contarCaracteres(data, letra) {
 
 console.log(contarCaracteres(data, "A"));
 
+// Ejercicio 1
+// Crea una función que pida un número por parámetro y guarde su tabla de multiplicar en un array. El array será el valor devuelto por la función
+// Ejemplo --> Tabla del 3 --> [3,6,9,12,15,18,21,24,27,30]
+
+// const tablaMultiplicar = () => {}
+
+// Función: tablaMultiplicar()
+// parámetro: num
+// return: array de la tabla de multiplicar
+// [3*1,3*2,3*3,.....3*10] ---> i va de 1....10
+// [num*1,num*2,num*3,.....num*10]
+function tablaMultiplicar(num) {
+  let resultado = [];
+  for (let i = 1; i <= 10; i++) {
+    resultado.push(num * i);
+    //console.log(resultado);
+    
+  }
+  //console.log(resultado);
+  return resultado;
+}
+
+const tabla = tablaMultiplicar(3); // almacena el resultado 
+console.log(`El resultado de la tabla es: ${tabla}`);
+
+
+// Ejercicio 2
+// Crea una función que pida números por teclado (prompt) y mételos en un array. Cuando el usuario meta un 0, dejaremos de insertar (habrá que usar un bucle que pregunte constantemente). Por último, ordena los números ordenados de menor a mayor y devuelve el array. Prompt() devuelve un string. hay que convertirlo a entero con parseInt() https://www.tutorialspoint.com/how-to-convert-a-string-into-integer-in-javascript
+
+// Tareas
+// Pedir números por teclado
+// Lógica para parar de insertar números OK
+// Ordenar números en un array OK
+
+// array ejemplo:
+// antes
+// let datos = []; // inicialmente, array vacío
+
+// // Llega 3
+// datos = [3];
+
+// // Llega 5
+// datos = [3,5];
+
+// // Llega -2
+// datos = [-2, 3, 5];
+
+// // Llega 1
+// datos = [-2, 1, 3, 5];
+
+
+// Llega 4
+// Cuando llega el 4, debo recorrer el array
+// compara en cada posición si el número (num) es menor
+// Sólo podemos usar push() para añadir en la última posición
+
+/*
+let datos = [-2, 1, 3, 5];
+let num = 100;
+// part1 = datos.slice(0,3) --> [-2, 1, 3]  
+// part2 = datos.slice(3,4) --> [5]
+// part1.push(4) --> [-2, 1, 3, 4]   --> Sirve SOLO para 4
+// part1.concat(part2) --> [-2, 1, 3, 4, 5]  
+
+for (let i = 0; i < datos.length; i++) {
+  if (datos[i] > num) { // num es menor que el actual 
+    part1 = datos.slice(0,i);
+    part2 = datos.slice(i);
+    part1.push(num);
+    console.log(part1.concat(part2));
+    break;
+  }
+  // else{ // numero mayor que los que hay en el array
+  //   datos.push(num);
+  // }
+  else{
+    datos.push(num); // [-2, 1, 3, 4, 5] --> [-2, 1, 3, 4, 5, 100, 100, 100 ,1000] --> bucle infinito si no ponemos "break"
+    console.log(datos);
+    //break
+    
+  }
+}
+
+*/
+
+
+
+num = propmt("Introduce número");
+let datos = [];
+
+for (let i = 0; i < datos.length; i++) {
+  if (datos[i] > num) {
+    part1 = datos.slice(0,i);
+    part2 = datos.slice(i);
+    part1.push(num);
+    console.log(part1.concat(part2));
+    break;
+  }
+  else{
+    datos.push(num);
+    break; 
+  }
+}
