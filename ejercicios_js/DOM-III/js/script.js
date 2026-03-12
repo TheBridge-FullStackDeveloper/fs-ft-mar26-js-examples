@@ -18,28 +18,62 @@ form.addEventListener("submit",(event) => {
     //     alert("Por favor, que tenga @");
     // }
 
+    let errorMessage = "";
     
     const nameRegex = /^[A-Za-z]{3,}$/;
 
     if (!nameRegex.test(name)) {
-        alert("El nombre debe contener solo letras y tener al menos 3 caracteres.");
-        return;
+        errorMessage += "El nombre debe contener solo letras y tener al menos 3 caracteres.\n";
+        //alert("El nombre debe contener solo letras y tener al menos 3 caracteres.");
+        // return;
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!emailRegex.test(email)) {
-        alert("Por favor, introduce un email válido.");
-        return;
+        errorMessage += "Por favor, introduce un email válido.\n";
+        //alert("Por favor, introduce un email válido.");
+        // return;
     }
 
     // Terminar el ejercicio:
     // Contraseña
-    // Teléfono
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        errorMessage += `Por favor, introduce una password válida: 
+        - Mínimo 8 caracteres
+        - al menos una letra y un número\n`;
+        // alert(`Por favor, introduce una password válida: 
+        //     - Mínimo 8 caracteres
+        //     - al menos una letra y un número`);
+        // return;
+    }
     
 
-    //Continúa envío
-    alert("Formulario enviado con éxito!");
+    // Teléfono
+
+    const phone = event.target.phone.value;
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+        errorMessage += "Por favor, introduce un número de teléfono válido: exactamente 10 dígitos.\n";
+        // alert("Por favor, introduce un número de teléfono válido: exactamente 10 dígitos.");
+        // return;
+    }
+    
+    if (errorMessage) {
+        // alert(`Hay errores:
+        //     ${errorMessage}`);
+        document.getElementById("errorMessages").innerHTML = `<pre class="errorMessage">${errorMessage}</pre>`;
+    }else{
+        //Continúa envío
+        alert("Formulario enviado con éxito!");
+        document.getElementById("errorMessages").innerHTML = `<p class="success">FORMULARIO ENVIADO</p>`;
+        form.reset(); // limpiar formulario
+        form.submit(); // continúa con el envío del formulario
+    }
+
+
 
 })
 
