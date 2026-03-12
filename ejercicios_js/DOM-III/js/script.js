@@ -70,7 +70,7 @@ form.addEventListener("submit",(event) => {
         alert("Formulario enviado con éxito!");
         document.getElementById("errorMessages").innerHTML = `<p class="success">FORMULARIO ENVIADO</p>`;
         form.reset(); // limpiar formulario
-        form.submit(); // continúa con el envío del formulario
+        //form.submit(); // continúa con el envío del formulario
     }
 
 
