@@ -185,4 +185,51 @@ let result4 = foodList3
    );
 
   console.log(result5);
+
+//   9.- Obtener el monto total de los elementos que pertenecen a catergory "code" en el siguiente array.
+
+const books = [
+    {
+      name: ' JS for dummies',
+      author: 'Emily A. Vander Veer',
+      price: 20,
+      category: 'code'
+    },
+    {
+      name: 'Don Quijote de la Mancha',
+      author: 'Cervantes',
+      price: 14,
+      category: 'novel'
+    },
+    {
+      name: 'Juego de tronos',
+      author: 'George R. Martin',
+      price: 32,
+      category: 'Fantasy'
+    },
+    {
+      name: 'javascript the good parts',
+      author: 'Douglas Crockford',
+      price: 40,
+      category: 'code'
+    }
+  ];
+  // Resultado --> 60
+
+  const result6 = books
+                .filter(book => book.category === "code")
+                .reduce((acumulador, actual) => acumulador + actual.price,0)
+
+console.log(result6);
+
+const results7 = books.reduce((acc, libro) => {
+        //Ternario
+        return libro.category === 'code'? 
+                acc + libro.price// si es true -> acc + price en este caso
+                : acc;//else solo me devuelves el acc
+    }, 0);
+
+console.log(results7);
+  
+
   
