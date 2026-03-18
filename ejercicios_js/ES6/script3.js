@@ -196,7 +196,6 @@ async function showEpisode() {
     // LLamada 1
     let response = await fetch("https://rickandmortyapi.com/api/character/1");
     let data = await response.json();
-    
 
     const episode_url_3 = data.episode[2]; // URL Episodio 3
 
@@ -205,12 +204,53 @@ async function showEpisode() {
     let episode_data = await response2.json(); // datos del episodio listo para usar
 
     return episode_data.name;
-
   } catch (error) {
     // Manejar errores de red o del servidor
-    console.error('Hubo un problema con la solicitud:', error.message);
+    console.error("Hubo un problema con la solicitud:", error.message);
   }
 }
 
 // Llamar a la función
 showEpisode().then((data) => console.log(data));
+
+// 9.- Dada una lista de usuarios de github guardada en una array,crea una funcion fetchGithubUsers(userNames) que utilice 'https://api.github.com/users/${name}' para obtener el nombre de cada usuario.
+
+function fetchGithubUsers(userNames) {
+  const promises = userNames.map((name) =>
+    fetch(`https://api.github.com/users/${name}`).then((res) => res.json())
+  ); // Array de promesas [p1,p2,p3,p4]
+
+  return Promise.all(promises) // [p1,p2,p3,p4]
+    .catch((error) => {
+      console.log("Error:", error);
+    });
+}
+
+fetchGithubUsers(["PabloVecilla", "octocat"]).then((data) => {
+  data.forEach((user) => {
+    console.log("Nombre:", user.login);
+    console.log("Repos URL:", user.repos_url);
+  });
+});
+
+// Con async/await
+
+async function fetchGithubUsers2(userNames) {
+  try {
+    const promises = userNames.map((name) =>
+      fetch(`https://api.github.com/users/${name}`).then((res) => res.json())
+    );
+    const users = await Promise.all(promises);
+    return users;
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+fetchGithubUsers2(["PabloVecilla", "octocat"]).then((data) => {
+  data.forEach((user) => {
+    console.log(user);
+    console.log("Nombre:", user.login);
+    console.log("Repos URL:", user.repos_url);
+  });
+});
