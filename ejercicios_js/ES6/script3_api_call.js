@@ -254,3 +254,111 @@ fetchGithubUsers2(["PabloVecilla", "octocat"]).then((data) => {
     console.log("Repos URL:", user.repos_url);
   });
 });
+
+// Ejercicio 6.- Declara una función printPugVsPikachu que pinte la batalla entre "Pug" y "Pikachu" (no se testea)
+
+async function printPugVsPikachu() {
+  try {
+    const pikachu = `https://pokeapi.co/api/v2/pokemon/pikachu`;
+    const pug = `https://dog.ceo/api/breed/pug/images/random`;
+
+    const [res1, res2] = await Promise.all([fetch(pikachu), fetch(pug)]);
+    const data1 = await res1.json();
+    const data2 = await res2.json();
+
+    document.body.innerHTML += `<section>
+                      <img src="${data1.sprites.front_default}" alt="imagen de ${data1.forms[0].name}">
+                      <p>${data1.base_experience}</p>
+                      <p>${data1.forms[0].name}</p>
+                  </section>
+                  <section>
+                      <img src="${data2.message}" alt="imagen de Pug">
+                      <p>Pug</p>
+                  </section>`;
+  } catch (error) {
+    console.error("Hubo un problema con la solicitud:", error.message);
+  }
+}
+
+printPugVsPikachu().then((data) => console.log(data));
+
+async function printPugVsPikachu2() {
+  try {
+    let response1 = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 100)}`
+    );
+    let data1 = await response1.json();
+    let response2 = await fetch(`https://dog.ceo/api/breeds/image/random`);
+    let data2 = await response2.json();
+    let resultPoke = [data1.name, data1.sprites.front_default];
+
+    const {
+      name,
+      sprites: { front_default: image },
+    } = data1;
+
+    let resultDog = [data2.message];
+    let pokeVsDog = `<section>
+                  <img src="${image}" alt="${name}" class="dog">
+                  <h1>${name}</h1>
+                  <p>¡VS!</p>
+                  <img src="${resultDog}" alt="perro" class="dog">
+                  <h1>Perro</h1>
+                   </section>`;
+    document.body.innerHTML += pokeVsDog;
+    return pokeVsDog;
+  } catch {
+    console.error("Ha ocurrido un error");
+  }
+}
+
+printPugVsPikachu2().then((data) => console.log(data));
+
+// Ejercicio 4.- Declara una función getRandomDogImage que retorne la url de la imagen de un perro aleatorio
+
+async function getRandomDogImage() {
+  try {
+    let response = await fetch(`https://dog.ceo/api/breeds/image/random`);
+    let data = await response.json();
+
+    return data.message;
+  } catch (error) {
+    console.error("Hubo un problema con la solicitud:", error.message);
+  }
+}
+// getRandomDogImage().then((data) => console.log(data));
+
+// Ejercicio 5.- Declara una función getRandomPokemonImage que retorne la url de la imagen de un pokemon aleatorio.
+
+async function getRandomPokemonImage() {
+  try {
+    let aleatorio = Math.floor(Math.random() * 100) + 1;
+    let response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${aleatorio}`
+    );
+    let data = await response.json();
+    return data.sprites.front_default;
+  } catch (error) {
+    console.error("Hubo un problema con la solicitud:", error.message);
+  }
+}
+// getRandomPokemonImage().then((data) => console.log(data));
+
+// Ejercicio 6.- Declara una función printPugVsPikachu que pinte la batalla entre "Pug" y "Pikachu" (no se testea)
+
+async function printPugVsPikachu3() {
+
+  const dog_url_image = await getRandomDogImage();
+  const pokemon_url_image = await getRandomPokemonImage();
+
+  let pokeVsDog = `<section>
+                      <img src="${pokemon_url_image}" alt="pokemon" class="dog">
+                      <p>¡VS!</p>
+                      <img src="${dog_url_image}" alt="perro" class="dog">
+                      <h1>Perro</h1>
+                    </section>`;
+
+  document.body.innerHTML += pokeVsDog;
+}
+
+printPugVsPikachu3();
